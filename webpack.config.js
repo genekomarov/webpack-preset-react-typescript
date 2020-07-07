@@ -36,6 +36,25 @@ const cssLoaders = extra => {
     return loaders
 }
 
+const jsLoaders = () => {
+    const loaders = [
+        {
+            loader: 'babel-loader',
+            options: {
+                presets: [
+                    '@babel/preset-env',
+                    '@babel/preset-react',
+                    '@babel/preset-typescript'
+                ],
+                plugins: [
+                    '@babel/plugin-proposal-class-properties'
+                ]
+            }
+        }
+    ]
+    if (isDev) loaders.push('eslint-loader')
+    return loaders
+}
 
 module.exports = {
     // Указывает отправную точку для расчета относительных путей
@@ -124,19 +143,7 @@ module.exports = {
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                loader: {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: [
-                            '@babel/preset-env',
-                            '@babel/preset-react',
-                            '@babel/preset-typescript'
-                        ],
-                        plugins: [
-                            '@babel/plugin-proposal-class-properties'
-                        ]
-                    }
-                }
+                use: jsLoaders()
             }
         ]
     },
