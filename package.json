@@ -4,10 +4,10 @@
   "description": "test setup webpack",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_ENV=developmment webpack --mode  development",
+    "dev": "cross-env NODE_ENV=development webpack --mode  development",
     "build": "webpack --mode production",
     "watch": "webpack --mode  development --watch",
-    "start": "webpack-dev-server --mode development --open"
+    "start": "cross-env NODE_ENV=development webpack-dev-server --mode development --open"
   },
   "repository": {
     "type": "git",

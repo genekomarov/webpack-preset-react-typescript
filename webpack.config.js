@@ -7,6 +7,7 @@ const TenserWebpackPlugin = require('terser-webpack-plugin')
 const OptimizeCssWebpackPlugin = require('optimize-css-assets-webpack-plugin')
 
 const isDev = process.env.NODE_ENV === 'development'
+console.log(process.env.NODE_ENV)
 const isProd = !isDev
 
 const optimization = () => {
@@ -60,6 +61,7 @@ module.exports = {
         port: 4200,
         hot: isDev
     },
+    devtool: isDev ? 'source-map' : '',
     plugins: [
         // Автоматическое подключение бандлов в html
         new HtmlWebpackPlugin({
