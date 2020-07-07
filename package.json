@@ -1,0 +1,24 @@
+{
+  "name": "my-webpack-environment",
+  "version": "0.1.0",
+  "description": "test setup webpack",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/genekomarov/_test_webpack.git"
+  },
+  "keywords": [
+    "js",
+    "webpack",
+    "babel"
+  ],
+  "author": "Eugene Komarov <gene.komarov@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/genekomarov/_test_webpack/issues"
+  },
+  "homepage": "https://github.com/genekomarov/_test_webpack#readme"
+}
