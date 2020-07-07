@@ -5,6 +5,7 @@ const {CleanWebpackPlugin} = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const TenserWebpackPlugin = require('terser-webpack-plugin')
 const OptimizeCssWebpackPlugin = require('optimize-css-assets-webpack-plugin')
+const BundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 const isDev = process.env.NODE_ENV === 'development'
 console.log(process.env.NODE_ENV)
@@ -56,6 +57,34 @@ const jsLoaders = () => {
     return loaders
 }
 
+const plugins = () => {
+    const base = [
+        // Автоматическое подключение бандлов в html
+        new HtmlWebpackPlugin({
+            //Генерирует index.html в папке со сборкой, если не указан template
+            //title: 'Webpack',
+            template: './index.html',
+            minify: {
+                collapseWhitespace: isProd
+            }
+        }),
+        // Автоматически чистит папку со сборкой
+        new CleanWebpackPlugin,
+        // Позволяет делать копирование файлов
+        // new CopyWebpackPlugin([
+        //     {
+        //         from: path.resolve(__dirname, 'some_path'),
+        //         to: path.resolve(__dirname, 'some_path')
+        //     }
+        // ]),
+        new MiniCssExtractPlugin({
+            filename: filename('css')
+        }),
+    ]
+    if (isProd) base.push(new BundleAnalyzer())
+    return base
+}
+
 module.exports = {
     // Указывает отправную точку для расчета относительных путей
     context: path.resolve(__dirname, 'src'),
@@ -81,29 +110,7 @@ module.exports = {
         hot: isDev
     },
     devtool: isDev ? 'source-map' : '',
-    plugins: [
-        // Автоматическое подключение бандлов в html
-        new HtmlWebpackPlugin({
-            //Генерирует index.html в папке со сборкой, если не указан template
-            //title: 'Webpack',
-            template: './index.html',
-            minify: {
-                collapseWhitespace: isProd
-            }
-        }),
-        // Автоматически чистит папку со сборкой
-        new CleanWebpackPlugin,
-        // Позволяет делать копирование файлов
-        // new CopyWebpackPlugin([
-        //     {
-        //         from: path.resolve(__dirname, 'some_path'),
-        //         to: path.resolve(__dirname, 'some_path')
-        //     }
-        // ]),
-        new MiniCssExtractPlugin({
-            filename: filename('css')
-        }),
-    ],
+    plugins: plugins(),
     module: {
         rules: [
             // Собирает стили в тег style
