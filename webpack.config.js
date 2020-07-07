@@ -40,7 +40,7 @@ module.exports = {
     // Указывает отправную точку для расчета относительных путей
     context: path.resolve(__dirname, 'src'),
     entry: {
-        main: './index.js',
+        main: ['@babel/polyfill', './index.js'],
         secondary: './secondary.js'
     },
     output: {
@@ -119,7 +119,21 @@ module.exports = {
                 test: /\.(ttf|woff|woff2|eot)$/,
                 use: ['file-loader']
             },
-
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: [
+                            '@babel/preset-env'
+                        ],
+                        plugins: [
+                            '@babel/plugin-proposal-class-properties'
+                        ]
+                    }
+                }
+            }
         ]
     },
 }
