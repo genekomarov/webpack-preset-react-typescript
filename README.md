@@ -36,7 +36,7 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.<br />
 Your app is ready to be deployed!
 
-## `npm stats`
+### `npm stats`
 
 This script will create the `stats.json` file in root folder of project.<br />
 Based on this file will be created and shown bundle analyze page.<br />
