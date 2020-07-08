@@ -1,5 +1,5 @@
 This is webpack config was created for using with React and Typescript
-[https://github.com/genekomarov/webpack-preset-react-typpescript](https://github.com/genekomarov/webpack-preset-react-typpescript)
+[https://github.com/genekomarov/webpack-preset-react-typescript](https://github.com/genekomarov/webpack-preset-react-typescript)
 
 ## Include Functionality
 

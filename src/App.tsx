@@ -9,7 +9,7 @@ const App: React.FC = () => {
             <header>
                 <h1>React typescript webpack config example</h1>
                 <p>
-                    This app was bootstrapped with <a href="https://github.com/genekomarov/webpack-preset-react-typpescript">webpack-preset-react-typescript</a><br/>
+                    This app was bootstrapped with <a href="https://github.com/genekomarov/webpack-preset-react-typescript">webpack-preset-react-typescript</a><br/>
                     by Eugene Komarov <a href="email:gene.komarov@gmail.com">gene.komarov@gmail.com</a>
                 </p>
             </header>
