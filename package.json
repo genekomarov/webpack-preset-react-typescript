@@ -4,10 +4,10 @@
   "description": "test setup webpack",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack --mode  development",
-    "build": "webpack --mode production",
-    "watch": "webpack --mode  development --watch",
     "start": "cross-env NODE_ENV=development webpack-dev-server --mode development --open",
+    "dev": "cross-env NODE_ENV=development webpack --mode  development",
+    "watch": "cross-env NODE_ENV=development webpack --mode  development --watch",
+    "build": "webpack --mode production",
     "stats": "webpack --json > stats.json && webpack-bundle-analyzer stats.json"
   },
   "repository": {

@@ -1,16 +1,19 @@
+'use strict'
+
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const {CleanWebpackPlugin} = require('clean-webpack-plugin')
-// const {CopyWebpackPlugin} = require('copy-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const TenserWebpackPlugin = require('terser-webpack-plugin')
 const OptimizeCssWebpackPlugin = require('optimize-css-assets-webpack-plugin')
 const BundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
+// build mode definition
 const isDev = process.env.NODE_ENV === 'development'
-console.log(process.env.NODE_ENV)
 const isProd = !isDev
 
+// for optimization section
 const optimization = () => {
     const config = {
         splitChunks: {chunks: "all"}
@@ -21,9 +24,12 @@ const optimization = () => {
     ]
 }
 
+// to generate bundle file name
 const filename = ext => isDev ? `[name].${ext}` : `[name].[hash].${ext}`
 
-const cssLoaders = extra => {
+// loaders for css and css preprocess tools (less, sass etc.)
+// for use with the preprocess tool, you need pass the name of the desired loader
+const cssLoaders = (...extra) => {
     const loaders = [
         {
             loader: MiniCssExtractPlugin.loader,
@@ -33,19 +39,19 @@ const cssLoaders = extra => {
             }
         },
         'css-loader']
-    if (extra) loaders.push(extra)
+    for (let key of extra) loaders.push(key)
     return loaders
 }
 
-const jsLoaders = () => {
+// loaders for js files
+const jsLoaders = (...presets) => {
     const loaders = [
         {
             loader: 'babel-loader',
             options: {
                 presets: [
                     '@babel/preset-env',
-                    '@babel/preset-react',
-                    '@babel/preset-typescript'
+                    ...presets
                 ],
                 plugins: [
                     '@babel/plugin-proposal-class-properties'
@@ -57,26 +63,28 @@ const jsLoaders = () => {
     return loaders
 }
 
+// for plugins section
 const plugins = () => {
     const base = [
-        // Автоматическое подключение бандлов в html
+        // plugin for connecting scripts to html template
         new HtmlWebpackPlugin({
-            //Генерирует index.html в папке со сборкой, если не указан template
-            //title: 'Webpack',
             template: './index.html',
             minify: {
                 collapseWhitespace: isProd
             }
         }),
-        // Автоматически чистит папку со сборкой
+        // plugin for clears the build folder
         new CleanWebpackPlugin,
-        // Позволяет делать копирование файлов
-        // new CopyWebpackPlugin([
-        //     {
-        //         from: path.resolve(__dirname, 'some_path'),
-        //         to: path.resolve(__dirname, 'some_path')
-        //     }
-        // ]),
+        // file copy plugin
+        // new CopyWebpackPlugin({
+        //     patterns: [
+        //         {
+        //             from: path.resolve(__dirname, ''),
+        //             to: path.resolve(__dirname, '')
+        //         },
+        //     ],
+        // }),
+        // plugin for connecting css as separate file
         new MiniCssExtractPlugin({
             filename: filename('css')
         }),
@@ -86,20 +94,17 @@ const plugins = () => {
 }
 
 module.exports = {
-    // Указывает отправную точку для расчета относительных путей
     context: path.resolve(__dirname, 'src'),
+    mode: "development",
     entry: {
-        main: ['@babel/polyfill', './index.js'],
-        secondary: './secondary.js'
+        main: ['@babel/polyfill', './index.js']
     },
     output: {
         filename: filename('js'),
         path: path.resolve(__dirname, 'build')
     },
-    mode: "development",
     resolve: {
         extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
-        // Псевдонимы путей
         alias: {
             '@': path.resolve(__dirname, 'src')
         }
@@ -113,12 +118,6 @@ module.exports = {
     plugins: plugins(),
     module: {
         rules: [
-            // Собирает стили в тег style
-            // {
-            //     test: /\.css$/,
-            //     use: ['style-loader', 'css-loader']
-            // },
-            // Подключает стили как отдельный файл
             {
                 test: /\.css$/,
                 use: cssLoaders()
@@ -151,6 +150,21 @@ module.exports = {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 use: jsLoaders()
+            },
+            {
+                test: /\.ts$/,
+                exclude: /node_modules/,
+                use: jsLoaders('@babel/preset-typescript')
+            },
+            {
+                test: /\.jsx$/,
+                exclude: /node_modules/,
+                use: jsLoaders('@babel/preset-react')
+            },
+            {
+                test: /\.tsx$/,
+                exclude: /node_modules/,
+                use: jsLoaders('@babel/preset-react', '@babel/preset-typescript')
             }
         ]
     },
