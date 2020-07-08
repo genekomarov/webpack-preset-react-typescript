@@ -1,7 +1,7 @@
 {
-  "name": "my-webpack-environment",
+  "name": "webpack-config",
   "version": "0.1.0",
-  "description": "test setup webpack",
+  "description": "my base webpack config for using with react and typescript",
   "private": true,
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack-dev-server --mode development --open",
@@ -41,6 +41,7 @@
     "csv-loader": "^3.0.3",
     "eslint": "^7.4.0",
     "eslint-loader": "^4.0.2",
+    "eslint-plugin-react": "^7.20.3",
     "file-loader": "^6.0.0",
     "html-webpack-plugin": "^4.3.0",
     "less": "^3.11.3",
@@ -60,6 +61,8 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.10.4",
-    "normalize.css": "^8.0.1"
+    "normalize.css": "^8.0.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
   }
 }

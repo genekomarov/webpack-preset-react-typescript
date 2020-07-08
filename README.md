@@ -1,5 +1,9 @@
 This is webpack config was created for using with React and Typescript
-[http://localhost:4200](http://localhost:4200)
+[https://github.com/genekomarov/webpack-preset-react-typpescript](https://github.com/genekomarov/webpack-preset-react-typpescript)
+
+## Include Functionality
+
+`webpack`, `babel`, `react`, `typescript`, `eslint`, `sass`, `less` and some more
 
 ## Available Scripts
 

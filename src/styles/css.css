@@ -1,0 +1,16 @@
+@import "~normalize.css";
+
+@font-face {
+    font-family: Roboto, sans-serif;
+    src: local("Roboto");
+    src: url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+}
+
+.root {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.root__font_roboto {
+    font-family: Roboto;
+}
