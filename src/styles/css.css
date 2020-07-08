@@ -14,3 +14,22 @@
 .root__font_roboto {
     font-family: Roboto;
 }
+
+a {
+    color: black;
+    text-decoration: none;
+    border-bottom: 1px solid #bbeffd;
+}
+
+a:link, a:visited {
+    background: azure;
+}
+
+a:hover {
+    background: #bbeffd;
+    border-bottom: 1px solid black;
+}
+
+p {
+    line-height: 1.5em;
+}

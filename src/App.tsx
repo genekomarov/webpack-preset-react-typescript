@@ -1,9 +1,11 @@
-import React from 'react'
+import React from "react"
 import './styles/css.css'
+import './styles/scss.scss'
+import './styles/less.less'
 
 const App: React.FC = () => {
     return (
-        <div>
+        <div className={'root root__font_roboto'}>
             <header>
                 <h1>React typescript webpack config example</h1>
                 <p>
@@ -20,16 +22,16 @@ const App: React.FC = () => {
                     <p>Styles for this article makes with CSS</p>
                 </article>
                 <hr/>
-                <article>
+                <article className={'scss'}>
                     <header>
-                        <h2>SCSS</h2>
+                        <h2><span>SCSS</span></h2>
                     </header>
                     <p>Styles for this article makes with SCSS</p>
                 </article>
                 <hr/>
-                <article>
+                <article className={'less'}>
                     <header >
-                        <h2>LESS</h2>
+                        <h2><span>LESS</span></h2>
                     </header>
                     <p>Styles for this article makes with LESS</p>
                 </article>
