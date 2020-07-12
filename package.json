@@ -1,6 +1,6 @@
 {
   "name": "webpack-config",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "my base webpack config for using with react and typescript",
   "private": true,
   "scripts": {
@@ -38,6 +38,7 @@
     "copy-webpack-plugin": "^6.0.3",
     "cross-env": "^7.0.2",
     "css-loader": "^3.6.0",
+    "css-modules-typescript-loader": "^4.0.0",
     "csv-loader": "^3.0.3",
     "eslint": "^7.4.0",
     "eslint-loader": "^4.0.2",

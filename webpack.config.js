@@ -29,7 +29,7 @@ const filename = ext => isDev ? `[name].${ext}` : `[name].[hash].${ext}`
 
 // loaders for css and css preprocess tools (less, sass etc.)
 // for use with the preprocess tool, you need pass the name of the desired loader
-const cssLoaders = (...extra) => {
+const cssLoaders = (extra, isModule = false) => {
     const loaders = [
         {
             loader: MiniCssExtractPlugin.loader,
@@ -38,8 +38,20 @@ const cssLoaders = (...extra) => {
                 reloadAll: true
             }
         },
-        'css-loader']
-    for (let key of extra) loaders.push(key)
+        'css-modules-typescript-loader',
+    ]
+    if (!isModule) loaders.push('css-loader')
+    else loaders.push(
+        {
+            loader: 'css-loader',
+            options: {
+                importLoaders: 1,
+                modules: true
+            }
+        }
+    )
+
+    if (extra) loaders.push(extra)
     return loaders
 }
 
@@ -104,7 +116,7 @@ module.exports = {
         path: path.resolve(__dirname, 'build')
     },
     resolve: {
-        extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
+        extensions: ['.js', '.jsx', '.json', '.ts', '.tsx', '.css', '.scss'],
         alias: {
             '@': path.resolve(__dirname, 'src')
         }
@@ -120,15 +132,33 @@ module.exports = {
         rules: [
             {
                 test: /\.css$/,
-                use: cssLoaders()
+                use: cssLoaders(),
+                exclude: /\.module\.css$/
             },
             {
                 test: /\.less$/,
-                use: cssLoaders('less-loader')
+                use: cssLoaders('less-loader'),
+                exclude: /\.module\.less$/
             },
             {
                 test: /\.s[ac]ss$/,
-                use: cssLoaders('sass-loader')
+                use: cssLoaders('sass-loader'),
+                exclude: /\.module\.s[ac]ss$/
+            },
+            {
+                test: /\.css$/,
+                use: cssLoaders(null, true),
+                include: /\.module\.css$/
+            },
+            {
+                test: /\.less$/,
+                use: cssLoaders('less-loader', true),
+                include: /\.module\.less$/
+            },
+            {
+                test: /\.s[ac]ss$/,
+                use: cssLoaders('sass-loader', true),
+                include: /\.module\.s[ac]ss$/
             },
             {
                 test: /\.(png|jpg|svg|gif)$/,
